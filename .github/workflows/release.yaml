@@ -1,0 +1,25 @@
+name: Semantic Version
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Fetch all tags
+      run: git fetch --tags
+    - name: Install dependencies
+      run: |
+        npm install -g semantic-release @semantic-release/git @semantic-release/changelog
+    - name: Install Commit Lint
+      run: |
+        npm install --save-dev @commitlint/config-conventional @commitlint/cli
+    - name: Run semantic-release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # npx semantic-release --branches 'mmogalla/pull_request_file'
+        npx semantic-release
