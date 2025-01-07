@@ -1,3 +1,9 @@
+## Changes in version 1.1.0
+
+### Features
+
+* update ([ab6c54a](https://github.com/Nikith13/actions/commit/ab6c54a90edb8a2dc23e3d3dfcbf7a6fda8b96d8))
+
 ## Changes in version 1.0.1
 
 ### Bug Fixes
