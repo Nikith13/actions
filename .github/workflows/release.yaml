@@ -19,7 +19,6 @@ jobs:
         npm install --save-dev @commitlint/config-conventional @commitlint/cli
     - name: Run semantic-release
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
-        # npx semantic-release --branches 'mmogalla/pull_request_file'
         npx semantic-release
