@@ -1,3 +1,9 @@
+## Changes in version 1.0.1
+
+### Bug Fixes
+
+* qhebdjfh ([#2](https://github.com/Nikith13/actions/issues/2)) ([399f39f](https://github.com/Nikith13/actions/commit/399f39f1c8bb7d7ba5b34591cf7ff96c1bae1482))
+
 ## Changes in version 1.0.0
 
 ### Features
