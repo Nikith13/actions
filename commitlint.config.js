@@ -6,3 +6,4 @@ module.exports = {
 		'header-max-length': [1, 'always', 100]
 	}
 };
+//why
