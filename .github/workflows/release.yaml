@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+//these are jobs
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,3 +23,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         npx semantic-release
+        
