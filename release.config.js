@@ -1,4 +1,4 @@
-//release
+//release config file
 module.exports = {
     branches: ['main'],
     tagFormat: 'v${version}',
