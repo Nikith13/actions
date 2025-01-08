@@ -11,8 +11,7 @@ module.exports = {
             headerPartial: '## Changes in version {{version}}',
           },
         },
-      ],
-      '@semantic-release/changelog',      
+      ],      
       '@semantic-release/github',     
       '@semantic-release/git',
     ]
