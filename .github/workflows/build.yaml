@@ -12,13 +12,29 @@ jobs:
         uses: actions/checkout@v2
 
       # Step 2: Fetch latest git tags to determine the latest version
-      - name: Get Latest Tag
+      # - name: Get Latest Tag
+      #   id: get_tag
+      #   run: |
+      #     # Fetch all tags
+      #     git fetch origin main --tags
+      #     # Get the latest tag
+      #     LATEST_TAG=$(git describe --tags --abbrev=0)
+      #     echo "Latest tag: $LATEST_TAG"
+      #     echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+      - name: Get Latest Tag from main
         id: get_tag
         run: |
-          # Fetch all tags
+          # Fetch tags for the main branch explicitly
           git fetch origin main --tags
-          # Get the latest tag
-          LATEST_TAG=$(git describe --tags --abbrev=0)
+          
+          # Check if tags exist on the main branch
+          if git describe --tags --abbrev=0 2>/dev/null; then
+            LATEST_TAG=$(git describe --tags --abbrev=0)
+          else
+            # Fallback to a default version if no tags are found
+            LATEST_TAG="0.0.0"
+          fi
+
           echo "Latest tag: $LATEST_TAG"
           echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
 
