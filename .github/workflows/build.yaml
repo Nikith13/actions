@@ -1,0 +1,58 @@
+name: Build and Version Docker Image
+
+on: push
+
+jobs:
+  version-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      # Step 2: Fetch latest git tags to determine the latest version
+      - name: Get Latest Tag
+        id: get_tag
+        run: |
+          # Fetch all tags
+          git fetch origin main --tags
+          # Get the latest tag
+          LATEST_TAG=$(git describe --tags --abbrev=0)
+          echo "Latest tag: $LATEST_TAG"
+          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+
+      # Step 3: Set the version format
+      - name: Generate Version
+        id: generate_version
+        run: |
+          # Extract major, minor, and patch from the latest tag (assuming format vX.Y.Z)
+          VERSION_BASE=${LATEST_TAG//v/}
+          PR_NUMBER=${GITHUB_REF#refs/pull/}
+          PR_NUMBER=${PR_NUMBER%%/*}
+          
+          # Get the run number (how many times the job has been run)
+          RUN_NUMBER=$(($GITHUB_RUN_NUMBER))
+          
+          # Create the final version string
+          FINAL_VERSION="${VERSION_BASE}-PR-${PR_NUMBER}-${RUN_NUMBER}-SNAPSHOT"
+          
+          # Set the version as an output
+          echo "FINAL_VERSION=$FINAL_VERSION" >> $GITHUB_ENV
+          echo "Version generated: $FINAL_VERSION"
+
+    #   # Step 4: Build the Docker image using Kaniko
+    #   - name: Build Docker Image with Kaniko
+    #     uses: gcr.io/kaniko-project/executor@v1.8.1
+    #     with:
+    #       image: ${{ secrets.DOCKER_REGISTRY }}/${{ secrets.DOCKER_REGISTRY_ORG }}/${{ secrets.APP_NAME }}:${{ env.FINAL_VERSION }}
+    #       context: /workspace/source
+    #       dockerfile: /workspace/source/Dockerfile
+    #       buildargs: |
+    #         VERSION=${{ env.FINAL_VERSION }}
+    #     env:
+    #       DOCKER_CONFIG: /kaniko/.docker/
+    #       KANIKO_FLAGS: '--cache=true'
+    #       DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+    #       DOCKER_REGISTRY_ORG: ${{ secrets.DOCKER_REGISTRY_ORG }}
+    #       APP_NAME: ${{ secrets.APP_NAME }}
