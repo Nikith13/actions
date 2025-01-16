@@ -31,6 +31,7 @@ jobs:
           echo "Version generated: $FINAL_VERSION"
       - name: Build Docker Image with Kaniko
         run: |
+          cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
           docker run --rm \
             -v ${{ github.workspace }}:/workspace \
             -v /kaniko/.docker:/kaniko/.docker \
