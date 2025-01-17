@@ -29,25 +29,34 @@ jobs:
           FINAL_VERSION="${VERSION_BASE}-PR-${PR_NUMBER}-${RUN_NUMBER}-SNAPSHOT"      
           echo "FINAL_VERSION=$FINAL_VERSION" >> $GITHUB_ENV
           echo "Version generated: $FINAL_VERSION"
-      - name: Build Docker Image with Kaniko
-        run: |
-          source .jx/variables.sh
-          cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
-          docker run --rm \
-            -v ${{ github.workspace }}:/workspace \
-            -v /kaniko/.docker:/kaniko/.docker \
-            -e DOCKER_CONFIG=/kaniko/.docker \
-            gcr.io/kaniko-project/executor:v1.8.1-debug \
-            --context=/workspace \
-            --dockerfile=/workspace/Dockerfile \
-            --destination=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }} \
-            --build-arg VERSION=${{ env.FINAL_VERSION }} \
-            --cache=true \
-            --skip-unused-stages \
-            --snapshotMode=redo
-        env:
-          DOCKER_CONFIG: /kaniko/.docker/
-          KANIKO_FLAGS: '--skip-unused-stages --snapshotMode=redo'
-          DOCKER_REGISTRY: 228826302777.dkr.ecr.ap-southeast-2.amazonaws.com
-          DOCKER_REGISTRY_ORG: targetau
-          APP_NAME: tonline-order-service
+      - name: Kaniko build
+        uses: aevea/action-kaniko@master
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          # image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:${{ env.FINAL_VERSION }}
+          cache: true
+          cache_registry: aevea/cache
+      # - name: Build Docker Image with Kaniko
+      #   run: |
+      #     source .jx/variables.sh
+      #     cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
+      #     docker run --rm \
+      #       -v ${{ github.workspace }}:/workspace \
+      #       -v /kaniko/.docker:/kaniko/.docker \
+      #       -e DOCKER_CONFIG=/kaniko/.docker \
+      #       gcr.io/kaniko-project/executor:v1.8.1-debug \
+      #       --context=/workspace \
+      #       --dockerfile=/workspace/Dockerfile \
+      #       --destination=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }} \
+      #       --build-arg VERSION=${{ env.FINAL_VERSION }} \
+      #       --cache=true \
+      #       --skip-unused-stages \
+      #       --snapshotMode=redo
+      #   env:
+      #     DOCKER_CONFIG: /kaniko/.docker/
+      #     KANIKO_FLAGS: '--skip-unused-stages --snapshotMode=redo'
+      #     DOCKER_REGISTRY: 228826302777.dkr.ecr.ap-southeast-2.amazonaws.com
+      #     DOCKER_REGISTRY_ORG: targetau
+      #     APP_NAME: tonline-order-service
