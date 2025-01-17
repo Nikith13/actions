@@ -46,7 +46,7 @@ jobs:
           VERSION_BASE=${LATEST_TAG//v/}
           # PR_NUMBER=${GITHUB_REF#refs/pull/}
           # PR_NUMBER=${PR_NUMBER%%/*}
-          PR_NUMBER=$(echo $GITHUB_REF | sed -E 's/refs\/pull\/([0-9]+)\/merge/\1/')
+          # PR_NUMBER=$(echo $GITHUB_REF | sed -E 's/refs\/pull\/([0-9]+)\/merge/\1/')
           
           # Get the run number (how many times the job has been run)
           RUN_NUMBER=$(($GITHUB_RUN_NUMBER))
@@ -57,6 +57,17 @@ jobs:
           # Set the version as an output
           echo "FINAL_VERSION=$FINAL_VERSION" >> $GITHUB_ENV
           echo "Version generated: $FINAL_VERSION"
+
+      - name: Kaniko build
+        uses: aevea/action-kaniko@master
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          # image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
+          # image: aevea/kaniko
+          cache: true
+          cache_registry: aevea/cache
 
     #   # Step 4: Build the Docker image using Kaniko
     #   - name: Build Docker Image with Kaniko
