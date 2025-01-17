@@ -63,6 +63,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          dockerfile: $GITHUB_WORKSPACE/Dockerfile
+          context: $GITHUB_WORKSPACE
           # image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }}
           image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
           # image: aevea/kaniko
