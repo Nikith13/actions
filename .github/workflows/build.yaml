@@ -35,7 +35,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           # image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }}
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:${{ env.FINAL_VERSION }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:${{ env.LATEST_TAG }}
           cache: true
           cache_registry: aevea/cache
       # - name: Build Docker Image with Kaniko
