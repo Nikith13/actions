@@ -66,7 +66,7 @@ jobs:
           dockerfile: $GITHUB_WORKSPACE/Dockerfile
           context: $GITHUB_WORKSPACE
           # image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }}
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:${{ env.FINAL_VERSION }}
           # image: aevea/kaniko
           cache: true
           cache_registry: aevea/cache
