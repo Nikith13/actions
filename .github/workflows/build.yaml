@@ -38,6 +38,7 @@ jobs:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
           cache: true
           cache_registry: aevea/cache
+          destination: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
       # - name: Build Docker Image with Kaniko
       #   run: |
       #     source .jx/variables.sh
