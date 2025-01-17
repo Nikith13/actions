@@ -57,6 +57,7 @@ jobs:
           # Set the version as an output
           echo "FINAL_VERSION=$FINAL_VERSION" >> $GITHUB_ENV
           echo "Version generated: $FINAL_VERSION"
+          
       - name: Kaniko build
         uses: aevea/action-kaniko@master
         with:
