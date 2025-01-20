@@ -68,7 +68,7 @@ jobs:
           # image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }}
           # image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp
           # image: aevea/kaniko
-          image: gcr.io/kaniko-project/executor:latest
+          image: gcr.io/kaniko-project/executor
           no_push: true
           cache: true
           cache_registry: aevea/cache
