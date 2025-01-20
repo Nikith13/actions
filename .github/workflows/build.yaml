@@ -66,10 +66,8 @@ jobs:
           dockerfile: $GITHUB_WORKSPACE/Dockerfile
           context: $GITHUB_WORKSPACE
           # image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }}
-          # image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp
-          # image: aevea/kaniko
-          image: gcr.io/kaniko-project/executor
-          no_push: true
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp
+          # image: aevea/kanik
           cache: true
           cache_registry: aevea/cache
     #   # Step 4: Build the Docker image using Kaniko
