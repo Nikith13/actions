@@ -28,20 +28,15 @@ jobs:
           FINAL_VERSION="${VERSION_BASE}-PR-${PR_NUMBER}-${RUN_NUMBER}-SNAPSHOT"      
           echo "FINAL_VERSION=$FINAL_VERSION" >> $GITHUB_ENV
           echo "Version generated: $FINAL_VERSION"
-
+  
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
         with:
           version: latest
-  
-      - name: Set up Kaniko
-        uses: google-github-actions/setup-kaniko@v2
-        with:
-          version: v1.8.1
-  
-      - name: Build Docker image and save as tarball
+
+      - name: Build Docker image with Kaniko
         run: |
-          /kaniko/executor --context=dir:///workspace --dockerfile=Dockerfile --tarPath=/workspace/my-image.tar --no-push
+          docker run --rm -v ${{ github.workspace }}:/workspace gcr.io/kaniko-project/executor:v1.8.1-debug --context=dir:///workspace --dockerfile=/workspace/Dockerfile --no-push
         working-directory: ${{ github.workspace }}
 
       
