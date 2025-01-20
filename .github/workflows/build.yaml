@@ -1,6 +1,6 @@
 name: Build and Version Docker Image
 
-on: pull_request
+on: push
 
 jobs:
   version-and-build:
