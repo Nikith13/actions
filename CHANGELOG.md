@@ -1,3 +1,12 @@
+## Changes in version 1.1.6
+
+### Bug Fixes
+
+* Update release.config.js ([af9d28e](https://github.com/Nikith13/actions/commit/af9d28e017bf224aff01dca0ea582f14aaeb6996))
+* Update release.yaml ([70fbbce](https://github.com/Nikith13/actions/commit/70fbbce29ec815e9be7ad662a5e0cafb7588475a))
+* Update release.yaml ([9f6e3de](https://github.com/Nikith13/actions/commit/9f6e3de75ec561f8aa26632899b735a07cc1d5fa))
+* Update release.yaml ([872541b](https://github.com/Nikith13/actions/commit/872541bbfa5eb3ac44e37d9f78204a1861516542))
+
 ## Changes in version 1.1.0
 
 ### Features
