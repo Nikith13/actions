@@ -1,15 +1,28 @@
 name: Build and Version Docker Image
-
 on: pull_request
-
 jobs:
   version-and-build:
     runs-on: ubuntu-latest
-
+    env:
+      PR_NUMBER: ${{ github.event.number }}
     steps:
       # Step 1: Check out the code
       - name: Checkout Code
         uses: actions/checkout@v2
+      - name: Get Latest Tag
+        id: latest_tag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+      - name: Set LATEST_TAG
+        run: echo "LATEST_TAG=${{ steps.latest_tag.outputs.tag }}" >> $GITHUB_ENV
+      - name: Generate Version
+        id: generate_version
+        run: |
+          echo "The latest tag is: ${{ env.LATEST_TAG }}"
+          VERSION_BASE=${LATEST_TAG//v/}
+          RUN_NUMBER=$(($GITHUB_RUN_NUMBER))
+          FINAL_VERSION="${VERSION_BASE}-PR-${PR_NUMBER}-${RUN_NUMBER}-SNAPSHOT"          
+          echo "FINAL_VERSION=$FINAL_VERSION" >> $GITHUB_ENV
+          echo "Version generated: $FINAL_VERSION"
 
       # Step 2: Fetch latest git tags to determine the latest version
       # - name: Get Latest Tag
@@ -21,55 +34,55 @@ jobs:
       #     LATEST_TAG=$(git describe --tags --abbrev=0)
       #     echo "Latest tag: $LATEST_TAG"
       #     echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
-      - name: Get Latest Tag from main
-        id: get_tag
-        run: |
-          # Fetch tags for the main branch explicitly
-          git fetch origin main --tags
+      # - name: Get Latest Tag from main
+      #   id: get_tag
+      #   run: |
+      #     # Fetch tags for the main branch explicitly
+      #     git fetch origin main --tags
           
-          # Check if tags exist on the main branch
-          if git describe --tags --abbrev=0 2>/dev/null; then
-            LATEST_TAG=$(git describe --tags --abbrev=0)
-          else
-            # Fallback to a default version if no tags are found
-            LATEST_TAG="0.0.0"
-          fi
+      #     # Check if tags exist on the main branch
+      #     if git describe --tags --abbrev=0 2>/dev/null; then
+      #       LATEST_TAG=$(git describe --tags --abbrev=0)
+      #     else
+      #       # Fallback to a default version if no tags are found
+      #       LATEST_TAG="0.0.0"
+      #     fi
 
-          echo "Latest tag: $LATEST_TAG"
-          echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
+      #     echo "Latest tag: $LATEST_TAG"
+      #     echo "LATEST_TAG=$LATEST_TAG" >> $GITHUB_ENV
 
-      # Step 3: Set the version format
-      - name: Generate Version
-        id: generate_version
-        run: |
-          # Extract major, minor, and patch from the latest tag (assuming format vX.Y.Z)
-          VERSION_BASE=${LATEST_TAG//v/}
-          # PR_NUMBER=${GITHUB_REF#refs/pull/}
-          # PR_NUMBER=${PR_NUMBER%%/*}
-          # PR_NUMBER=$(echo $GITHUB_REF | sed -E 's/refs\/pull\/([0-9]+)\/merge/\1/')
+      # # Step 3: Set the version format
+      # - name: Generate Version
+      #   id: generate_version
+      #   run: |
+      #     # Extract major, minor, and patch from the latest tag (assuming format vX.Y.Z)
+      #     VERSION_BASE=${LATEST_TAG//v/}
+      #     # PR_NUMBER=${GITHUB_REF#refs/pull/}
+      #     # PR_NUMBER=${PR_NUMBER%%/*}
+      #     # PR_NUMBER=$(echo $GITHUB_REF | sed -E 's/refs\/pull\/([0-9]+)\/merge/\1/')
           
-          # Get the run number (how many times the job has been run)
-          RUN_NUMBER=$(($GITHUB_RUN_NUMBER))
+      #     # Get the run number (how many times the job has been run)
+      #     RUN_NUMBER=$(($GITHUB_RUN_NUMBER))
           
-          # Create the final version string
-          FINAL_VERSION="${VERSION_BASE}-PR-${PR_NUMBER}-${RUN_NUMBER}-SNAPSHOT"
+      #     # Create the final version string
+      #     FINAL_VERSION="${VERSION_BASE}-PR-${PR_NUMBER}-${RUN_NUMBER}-SNAPSHOT"
           
-          # Set the version as an output
-          echo "FINAL_VERSION=$FINAL_VERSION" >> $GITHUB_ENV
-          echo "Version generated: $FINAL_VERSION"
+      #     # Set the version as an output
+      #     echo "FINAL_VERSION=$FINAL_VERSION" >> $GITHUB_ENV
+      #     echo "Version generated: $FINAL_VERSION"
           
-      - name: Kaniko build
-        uses: aevea/action-kaniko@master
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          dockerfile: $GITHUB_WORKSPACE/Dockerfile
-          context: $GITHUB_WORKSPACE
-          # image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }}
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp
-          # image: aevea/kanik
-          cache: true
-          cache_registry: aevea/cache
+      # - name: Kaniko build
+      #   uses: aevea/action-kaniko@master
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      #     dockerfile: $GITHUB_WORKSPACE/Dockerfile
+      #     context: $GITHUB_WORKSPACE
+      #     # image: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_REGISTRY_ORG }}/${{ env.APP_NAME }}:${{ env.FINAL_VERSION }}
+      #     image: ${{ secrets.DOCKERHUB_USERNAME }}/myapp
+      #     # image: aevea/kanik
+      #     cache: true
+      #     cache_registry: aevea/cache
     #   # Step 4: Build the Docker image using Kaniko
     #   - name: Build Docker Image with Kaniko
     #     uses: gcr.io/kaniko-project/executor@v1.8.1
