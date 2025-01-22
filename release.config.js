@@ -1,3 +1,4 @@
+//release.config.js file
 module.exports = {
   branches: ['main'],
   tagFormat: 'v${version}',
