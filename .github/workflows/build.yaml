@@ -4,6 +4,7 @@ jobs:
   version-and-build:
     runs-on: ubuntu-latest
     env:
+      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       PR_NUMBER: ${{ github.event.number }}
     steps:
       # Step 1: Check out the code
