@@ -21,7 +21,7 @@ jobs:
       run: |
         npm install --save-dev @commitlint/config-conventional @commitlint/cli
     - name: Run semantic-release
-      if: ${{ github.ref == 'refs/heads/master' }}
+      if: ${{ github.ref == 'refs/heads/main' }}
       run: npx semantic-release   
     - name: Get Latest Tag
       id: latest_tag
