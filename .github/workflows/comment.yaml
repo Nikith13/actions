@@ -1,13 +1,16 @@
 name: pull request comment
+# on:
+#   issue_comment:                                     
+#     types: [created, edited, deleted]
+#   pull_request:  # Trigger on any PR event (open, synchronize, closed, etc.)
 on:
   issue_comment:                                     
-    types: [created, edited, deleted]
-  pull_request:  # Trigger on any PR event (open, synchronize, closed, etc.)
-  
+    types: [created, edited, deleted] 
 jobs:
   run_pipeline:
-    if: |
-      contains(github.event.comment.body, '/retest') || github.event_name == 'pull_request'
+    if: contains(github.event.comment.body, '/retest')
+    # if: |
+    #   contains(github.event.comment.body, '/retest') || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Say hello
