@@ -1,9 +1,8 @@
 name: Semantic Version
-# on:
-#   push:
-#     branches:
-#       - main
-on: pull_request
+on:
+  push:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
