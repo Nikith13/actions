@@ -1,3 +1,12 @@
+## <small>1.1.9 (2025-03-10)</small>
+
+* ci: Update package.json ([f655d4f](https://github.com/Nikith13/actions/commit/f655d4f))
+* ci: Update release.yaml (#18) ([a4dfbd7](https://github.com/Nikith13/actions/commit/a4dfbd7)), closes [#18](https://github.com/Nikith13/actions/issues/18)
+* Delete .github/workflows/re.yaml ([7e3fe06](https://github.com/Nikith13/actions/commit/7e3fe06))
+* Delete .github/workflows/rel ([091068d](https://github.com/Nikith13/actions/commit/091068d))
+* fix: Update re.yaml ([b85230e](https://github.com/Nikith13/actions/commit/b85230e))
+* fix: Update re.yaml ([e74d6c2](https://github.com/Nikith13/actions/commit/e74d6c2))
+
 ## Changes in version 1.1.7
 
 ## Changes in version 1.1.6
