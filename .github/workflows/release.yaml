@@ -2,7 +2,7 @@ name: Semantic Version
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,7 +21,6 @@ jobs:
       run: |
         npm install --save-dev @commitlint/config-conventional @commitlint/cli
     - name: Run semantic-release
-      if: ${{ github.ref == 'refs/heads/main' }}
       run: npx semantic-release   
     - name: Get Latest Tag
       id: latest_tag
