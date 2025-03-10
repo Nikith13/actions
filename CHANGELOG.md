@@ -1,3 +1,7 @@
+## <small>1.1.10 (2025-03-10)</small>
+
+* docs: Update release.yaml ([1391ca2](https://github.com/Nikith13/actions/commit/1391ca2))
+
 ## <small>1.1.9 (2025-03-10)</small>
 
 * ci: Update package.json ([f655d4f](https://github.com/Nikith13/actions/commit/f655d4f))
