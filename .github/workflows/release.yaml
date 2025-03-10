@@ -16,7 +16,7 @@ jobs:
       run: git fetch --tags
     - name: Install dependencies
       run: |
-        npm install -g semantic-release @semantic-release/git @semantic-release/changelog
+        npm install -g semantic-release @semantic-release/git @semantic-release/changelog @semantic-release/github
     - name: Install Commit Lint
       run: |
         npm install --save-dev @commitlint/config-conventional @commitlint/cli
