@@ -1,5 +1,5 @@
 name: pull request comment
-on:
+on: 
   issue_comment:                                     
     types: [created]
   pull_request:
@@ -11,3 +11,4 @@ jobs:
     steps:
       - name: Say hello
         run: echo say hello
+
