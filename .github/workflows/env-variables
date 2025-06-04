@@ -1,0 +1,12 @@
+name: Variables
+on: pull_request
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    environment: Dev
+    env:
+      APP1: ${{ vars.NIKKI }}
+      APP2: ${{ secrets.NIKITH }}
+    steps:
+    name: Print var and secrets from environment variables
+    run: echo "Var is $APP1, Secret is $APP2"
