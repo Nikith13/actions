@@ -11,3 +11,4 @@ jobs:
     steps:
       - name: Print var and secrets from environment variables
         run: echo "Var is $APP1, Secret is $APP2"
+
