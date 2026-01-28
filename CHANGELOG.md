@@ -1,3 +1,10 @@
+## <small>1.1.13 (2026-01-28)</small>
+
+* ci: Fix greeting in README file (#22) ([f7b7793](https://github.com/Nikith13/actions/commit/f7b7793)), closes [#22](https://github.com/Nikith13/actions/issues/22)
+* !feat: Fix whitespace in greeting (#21) ([002e586](https://github.com/Nikith13/actions/commit/002e586)), closes [#21](https://github.com/Nikith13/actions/issues/21)
+* Create env-variables (#19) ([9d28490](https://github.com/Nikith13/actions/commit/9d28490)), closes [#19](https://github.com/Nikith13/actions/issues/19)
+* Update and rename env-variables to env-variables.yaml ([5b2ab65](https://github.com/Nikith13/actions/commit/5b2ab65))
+
 ## <small>1.1.12 (2025-03-10)</small>
 
 * ci: Update release.yaml ([fb451c3](https://github.com/Nikith13/actions/commit/fb451c3))
