@@ -1,3 +1,13 @@
+## 1.2.0 (2026-01-30)
+
+* feat: Still checking the major version (#24) ([5b818ec](https://github.com/Nikith13/actions/commit/5b818ec)), closes [#24](https://github.com/Nikith13/actions/issues/24)
+* feat!: Testing major version (#23) ([88e3680](https://github.com/Nikith13/actions/commit/88e3680)), closes [#23](https://github.com/Nikith13/actions/issues/23)
+
+
+### BREAKING CHANGE
+
+* Nothing, Just simply
+
 ## <small>1.1.13 (2026-01-28)</small>
 
 * ci: Fix greeting in README file (#22) ([f7b7793](https://github.com/Nikith13/actions/commit/f7b7793)), closes [#22](https://github.com/Nikith13/actions/issues/22)
